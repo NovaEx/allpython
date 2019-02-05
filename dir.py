@@ -5,7 +5,7 @@ def dirsize(path):
     size = 0
     for dirpath, dirnames, filenames in os.walk(path):
         for f in filenames:
-            if not os.path.exists(os.path.join(dirpath, f)): break
+            if not os.path.exists(os.path.join(dirpath, f)): continue
             fp = os.path.join(dirpath, f)
             size += os.path.getsize(fp)
     return size
