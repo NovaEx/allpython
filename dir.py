@@ -1,5 +1,14 @@
 import os
 
+def dirsize(path):
+    size = 0
+    for dirpath, dirnames, filenames in os.walk(path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            size += os.path.getsize(fp)
+    return size
+
+
 dir = input('Введите директорию: ')
 if dir[-1] != '/': dir = dir + '/'
 if dir is not None:
@@ -9,12 +18,7 @@ if dir is not None:
         elif os.path.islink(dir + str(item)):
             print('{0:<50} {1:^5} '.format(item, 'link'))
         elif os.path.isdir(dir + str(item)):
-            dirsize = 0
-            for dirpath, dirnames, filenames in os.walk(dir + item):
-                for f in filenames:
-                    fp = os.path.join(dirpath, f)
-                    dirsize += os.path.getsize(fp)
-            print('{0:<50} {1:^5} {2:^50} '.format(item, 'dir', dirsize))
+            print('{0:<50} {1:^5} {2:^50} '.format(item, 'dir', dirsize(dir + item)))
         else:
             print('{0:<50} {1:^5} '.format(item, 'IDK'))
 # print( os.listdir('/home/ant') )
