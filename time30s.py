@@ -14,7 +14,7 @@ class TimerThread(Thread):
         self.stopped = event
 
     def run(self):
-        while not self.stopped.wait(1):
+        while not self.stopped.wait(30):
             print(time_now())
 
 
