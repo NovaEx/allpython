@@ -17,11 +17,14 @@ class TimerThread(Thread):
         while not self.stopped.wait(4):
             print(time_now())
 
-stopFlag = Event()
-thread = TimerThread(stopFlag)
 
-thread.start()
-while True:
-    if input('For to stop write space') == " ":
-        stopFlag.set()
-        break
+
+if __name__ == "__main__":
+    stopFlag = Event()
+    thread = TimerThread(stopFlag)
+
+    thread.start()
+    while True:
+        if input() == " ":
+            stopFlag.set()
+            break
