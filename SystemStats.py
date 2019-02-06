@@ -10,5 +10,5 @@ print('CPU: {0}  CORES: {1} THREADS: {2} LOAD: {3} FREQ_CUR: {4} MHz FREQ_MAX: {
 print('MEMORY ALL: {0} MB IN_USE: {1} MB FREE: {2} MB AVAILABLE: {3} MB'.format(int(psutil.virtual_memory().total/1024/1024), int(psutil.virtual_memory().used/1024/1024), int(psutil.virtual_memory().free/1024/1024), int(psutil.virtual_memory().available/1024/1024)))
 print('DISKS: ')
 for part in psutil.disk_partitions():
-    print('     DEV :{0:<15} MOUNT: {1:<30} fstype: {2} USAGE: {3}'.format(part.device ,part.mountpoint, part.fstype, psutil.disk_usage()))
+    print('     DEV :{0:<15} MOUNT: {1:<30} fstype: {2:<10} USED: {3:<10}  FREE: {4:<10} MB ALL: {5} MB'.format(part.device, part.mountpoint, part.fstype, str(int(psutil.disk_usage(part.mountpoint).used/1024/1024)) + ' MB', str(int(psutil.disk_usage(part.mountpoint).free/1024/1024)) + ' MB', int(psutil.disk_usage(part.mountpoint).total/1024/1024)))
 
