@@ -1,11 +1,9 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, or_
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 from sqlalchemy.exc import OperationalError, ArgumentError
 
-# Распечатать список сотрудников, которые были зачислены на работу до января 1979 и
-# после февраля 1981 годов. Результаты упорядочить в порядке убывания даты зачисления на работу.
+# 10. Вычислите и выведите максимальную, среднюю и минимальную зарплату для каждой должности в отделе.
 
 Base = declarative_base()
 
@@ -58,7 +56,7 @@ def connect():
 engine = create_engine('sqlite:///mysql.db', echo=True)
 Base.metadata.create_all(bind=engine)
 session = connect()()
-employers = session.query(Emp).order_by(Emp.hiredate.desc()).filter(or_(Emp.hiredate > '19810230', Emp.hiredate < '19790101'))
-print(employers)
+employers = session.query(func.min(Emp.sal), func.avg(Emp.sal), func.max(Emp.sal))
+# print(employers)
 for emp in employers:
-    print(' {:<10} work since : {}'.format(emp.ename, datetime.strptime(str(emp.hiredate), '%Y%m%d').strftime('%d.%m.%Y')))
+    print('max {0[2]} avg {0[1]:.5} min {0[0]}'.format(emp))

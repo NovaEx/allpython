@@ -1,11 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 from sqlalchemy.exc import OperationalError, ArgumentError
 
-# Распечатать список сотрудников, которые были зачислены на работу до января 1979 и
-# после февраля 1981 годов. Результаты упорядочить в порядке убывания даты зачисления на работу.
+# 8 - Определить сотрудников 10 отдела, занимающих должность менеджера или имеющих годовой доход более 3000.
 
 Base = declarative_base()
 
@@ -58,7 +56,7 @@ def connect():
 engine = create_engine('sqlite:///mysql.db', echo=True)
 Base.metadata.create_all(bind=engine)
 session = connect()()
-employers = session.query(Emp).order_by(Emp.hiredate.desc()).filter(or_(Emp.hiredate > '19810230', Emp.hiredate < '19790101'))
-print(employers)
+employers = session.query(Emp).filter(or_(Emp.job == 'MANAGER', Emp.sal > '3000')).filter(Emp.deptno == 10)
+# print(employers)
 for emp in employers:
-    print(' {:<10} work since : {}'.format(emp.ename, datetime.strptime(str(emp.hiredate), '%Y%m%d').strftime('%d.%m.%Y')))
+    print('His NAME IS {:<10} in dept №{} have job: {:<10} have salary: {}$'.format(emp.ename, emp.deptno, emp.job, emp.sal))
