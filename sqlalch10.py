@@ -14,8 +14,9 @@ class Dept(Base):
     dname = Column(String)                      # Название департамента
     loc = Column(String)                        # Местонахождение
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, deptno, loc):
+        self.deptno = deptno
+        self.loc = loc
 
 
 class Emp(Base):
@@ -29,9 +30,14 @@ class Emp(Base):
     comm = Column(Integer)                      # Премия
     deptno = Column(ForeignKey("dept.deptno"))  # Код департамента
 
-    def __init__(self, name):
-        self.name = name
-
+    def __init__(self, ename, job, mgr, hiredate, sal, comm, deptno):
+        self.ename = ename
+        self.job = job
+        self.mgr = mgr
+        self.hiredate = hiredate
+        self.sal = sal
+        self.comm = comm
+        self.deptno = deptno
 
 class Salgrade(Base):
     __tablename__ = "salgrade"
@@ -39,8 +45,10 @@ class Salgrade(Base):
     losal = Column(Integer)
     hisal = Column(Integer)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, losal, hisal):
+        self.name = losal
+        self.hisal = hisal
+
 
 
 def connect():
