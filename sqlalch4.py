@@ -54,7 +54,7 @@ def connect():
     return Session
 
 
-engine = create_engine('sqlite:///mysql.db', echo=True)
+engine = create_engine('sqlite:///mysql.db')
 Base.metadata.create_all(bind=engine)
 session = connect()()
 employers = session.query(Emp).all()

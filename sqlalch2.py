@@ -53,7 +53,7 @@ def connect():
     return Session
 
 
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///:memory:')
 Base.metadata.create_all(bind=engine)
 session = connect()()
 

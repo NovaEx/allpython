@@ -55,7 +55,7 @@ def connect():
     return Session
 
 
-engine = create_engine('sqlite:///mysql.db', echo=True)
+engine = create_engine('sqlite:///mysql.db')
 Base.metadata.create_all(bind=engine)
 session = connect()()
 employers = session.query(Emp).order_by(Emp.hiredate.desc()).filter(or_(Emp.hiredate > '19810230', Emp.hiredate < '19790101'))

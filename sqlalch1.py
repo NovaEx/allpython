@@ -7,7 +7,7 @@ from sqlalchemy.exc import OperationalError, ArgumentError
 # если параметры соединения неверны или база недоступна. Использовать эту функцию в остальных задачах.
 Base = declarative_base()
 
-engine = create_engine('sqlite:///newbase.db', echo=True)
+engine = create_engine('sqlite:///newbase.db')
 
 def connect():
         try:

@@ -53,9 +53,13 @@ def connect():
     return Session
 
 
-engine = create_engine('sqlite:///mysql.db', echo=True)
+engine = create_engine('sqlite:///mysql.db')
 Base.metadata.create_all(bind=engine)
 session = connect()()
 employers = session.query(func.count(Emp.ename), Emp.deptno).group_by(Emp.deptno).having(func.count(Emp.ename) > 3)
+dept = session.query(Dept).all()
+temp = []
+for nom in dept:
+    temp.append(nom.deptno)
 for emp in employers:
-    print(emp)
+    print('Отдел: {:<15} В нем сотрудников:{}'.format(dept[temp.index(emp.deptno)].dname, emp[0]))
